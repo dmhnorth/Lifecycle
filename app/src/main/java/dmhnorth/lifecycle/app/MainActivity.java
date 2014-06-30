@@ -7,8 +7,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.text.format.Time;
 
-import java.util.Calendar;
-
 /**
  * This is a demonstration of how Android copes with the necessary interuptability of running Apps
  * The functions here are written in order of event handler level.
@@ -16,9 +14,11 @@ import java.util.Calendar;
  * onCreate() and onDestroy() being the most significant when an activity is started and stopped
  *
  * onStart() and onStop() bracket activity when the App is visible
- * main use of onStart and onStop is to give the app an opportunity to monitor any changes that might affect it while not interacting with the user.
+ * main use of onStart and onStop is to give the app an opportunity
+ * to monitor any changes that might affect it while not interacting with the user.
  *
- * onResume() and onPause() bracket the period the app is in the foreground interacting with the user
+ * onResume() and onPause() bracket the period the app
+ * is in the foreground interacting with the user
  *
  */
 public class MainActivity extends ActionBarActivity {
@@ -41,8 +41,14 @@ public class MainActivity extends ActionBarActivity {
 
         //setup the layout format on creation of an Activity
         setContentView(R.layout.activity_main);
-
         textView = (TextView) findViewById(R.id.textView);
+
+        //Looks for a savedInstance of the TextEdit input box and loads it
+        if (savedInstanceState != null) {
+            textView.setText(
+                    savedInstanceState.getCharSequence(String.valueOf(R.string.myTextConstant)));
+        }
+
         textView.append(getTime() + "onCreate()" + "\n");
 
     }
@@ -84,6 +90,18 @@ public class MainActivity extends ActionBarActivity {
         textView.append(getTime() + "onDestroy()" + "\n");
 
     }
+
+
+    //For persisting the TextView between
+    @Override
+    protected void onSaveInstanceState(
+            Bundle savedInstanceState){
+        savedInstanceState.putCharSequence(
+                getString(R.string.myTextConstant),textView.getText());
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+
 
 
 
