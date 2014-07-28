@@ -94,11 +94,10 @@ public class MainActivity extends ActionBarActivity {
 
     //For persisting the TextView between
     @Override
-    protected void onSaveInstanceState(
-            Bundle savedInstanceState){
-        savedInstanceState.putCharSequence(
-                getString(R.string.myTextConstant),textView.getText());
+    protected void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putCharSequence(getString(R.string.myTextConstant),textView.getText());
     }
 
 
